@@ -62,3 +62,69 @@ header{
     width: 100%;
     transition: width 200ms ease-in-out;
 }
+
+/* === CARD ===*/
+
+.card{
+    background-color: white;
+    width: 800px;
+    min-height: 400px;
+    /*espaçamento ao centro*/
+    margin: 45px auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    /* sombra*/
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.3);
+
+    /* animation */
+
+    animation-name: up 200ms ease-out;
+/*    animation-name: up;
+    animation-duration: 800ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    animation-play-state: runing;
+    animation-iteration-count: infinite;*/
+}
+
+@keyframes up {
+    from {
+        opacity: 0;
+        transform: translateY(150px)
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* details */ 
+
+.details {
+    padding: 32px
+}
+
+.details .item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 16px
+}
+
+/*Eliminar o ultimo elemento*/
+.details .item:last-child {
+    border-none
+}
+
+/*Pegar o primeiro item de .item (Instrutor, Idade, Sexo) */
+.details .item div:nth-child(1) {
+    border: none;
+}
+
+/*Pegar o segundo item de .item (Os campos inputs) */
+.details .item div:nth-child(1) {
+    color: #555;
+    font-weight: bold;
+    font-size: 18px
+}
