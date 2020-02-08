@@ -2,6 +2,7 @@
 
 :root {
     --primary-color: #7159c1;
+    --secondary-color: #F7DF1E;
 }
 
 * {
@@ -118,13 +119,38 @@ header{
 }
 
 /*Pegar o primeiro item de .item (Instrutor, Idade, Sexo) */
+.details h3,
 .details .item div:nth-child(1) {
     border: none;
+    font-size: 14px;
+    line-height: 24px;
+    color: #2777;
+    letter-spacing: 0.7px;
+    font-weight: normal;
 }
 
 /*Pegar o segundo item de .item (Os campos inputs) */
-.details .item div:nth-child(1) {
+.details .item div:nth-child(2) {
     color: #555;
     font-weight: bold;
     font-size: 18px
+}
+
+.details h3 {
+    text-transform: uPPERcASE;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.details .item span {
+    padding: 8PX 16PX;
+    background-color: var(--secondary-color);
+    border-radius: 16px;
+    color: #777;
+    margin-right: 4px;
+    margin-top: 8px;
+    display: inline-block; /*inline => um ao lado do outro*/
+    font-weight: bold;
+    text-transform: uPPERcASE;
+    font-size: 12px
 }
