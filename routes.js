@@ -12,9 +12,17 @@ routes.get('/instructors', function(req, res){
 
 routes.post('/instructors', instructors.post)
 
+routes.put('/instructors', instructors.put)
+
 routes.get('/instructors/create', function(req, res){
     return res.render("instructors/create")
 })
+
+// HTTP VERBS
+// Get: Receber um resource(Apesar de as vezes ser utilizado para passar informações pelo get(string url)) - Resource(Uma entidade)
+// Post: Criar ou Salvar um novo resource com dados enviados
+// Put: Atualizar um Resource
+// Delete: Deletar um resource
 
 routes.get('/instructors/:id', instructors.show)
 
