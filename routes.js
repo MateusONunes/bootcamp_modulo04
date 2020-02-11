@@ -14,6 +14,8 @@ routes.post('/instructors', instructors.post)
 
 routes.put('/instructors', instructors.put)
 
+routes.delete('/instructors', instructors.delete)
+
 routes.get('/instructors/create', function(req, res){
     return res.render("instructors/create")
 })
