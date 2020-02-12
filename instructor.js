@@ -2,6 +2,16 @@ const fs = require('fs')
 const data = require('./data.json')
 const { age, date } = require('./utils') // desestruturando a funcao age.
 
+exports.index =  function(req, res){
+    let instructor = data.instructors
+
+    for(var i = 0, len = instructor.length; i < len; ++i) {
+        instructor[i].services_arr = instructor[i].services.split(',');
+    }
+
+    return res.render("instructors/index", { instructors: instructor})
+}
+
 //show
 exports.show = function(req, res){
     const { id } = req.params
@@ -20,8 +30,6 @@ exports.show = function(req, res){
         services: foundInstructor.services.split(","),
         created_at: new Intl.DateTimeFormat("en-ES").format(foundInstructor.created_at)
     }/* nesta instrução foi executado um" espalhamento" (Por exemplos, o nome não está nas variáveis mas foi "espalhado mesmo assim")*/
-
-    console.log(instructor.created_at);
 
     return res.render("instructors/show", { instructor: instructor})
 }
@@ -101,7 +109,8 @@ exports.put = function(req, res){
     const instructor ={
         ...foundInstructor,
         ...req.body,
-        birth: Date.parse(req.body.birth)
+        birth: Date.parse(req.body.birth),
+        id: Number(req.body.id)
     }
 
     data.instructors[index] = instructor

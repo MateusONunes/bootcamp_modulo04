@@ -2,43 +2,33 @@
 
 {% block content %}
 
-<div class="card">
-    <section 
-        class="avatar"
-        style="background: url(https://source.unsplash.com/collection/3465564/200x200) no-repeat center center / cover">
-     </section>
-    <section class="details">
-        <h3>Detalhes</h3>
+<div class="card table-container">
+    <table width=100%>
+        <thead>
+            <tr>
+                <th>Instructor</th>
+                <th>Atendimento</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for instructor in instructors%}
+            <tr>
+                <td>
+                <span style = "background-image: url({{ instructor.avatar_url }}) "></span>
+                {{instructor.name}}</td>
+                <td>
+                {% for service in instructor.services_arr %}
+                    <span class = "details-item"> {{ service }} </span>
+                {% endfor %}
 
-        <div class="item">
-            <div>Instrutor</div>
-            <div>Mateus Nunes</div>
-        </div>
-        <div class="item">
-            <div>Idade</div>
-            <div>37</div>
-        </div>
-
-        <div class="item">
-            <div>Sexo</div>
-            <div>Masculino</div>
-        </div>
-
-        <div class="item">
-            <div>Acompanhamento</div>
-            <div>
-                <span>Tai Chi Chuan</span>
-                <span>Yoga</span>
-            </div>
-        </div>
-
-        <div class="item">
-            <div>Desde</div>
-            <div>2009</div>
-        </div>
-
-        
-    </section>
+                
+                </td>
+                <td><a href="/instructors/{{instructor.id}}">Ver</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 
