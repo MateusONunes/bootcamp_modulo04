@@ -1,10 +1,10 @@
-const modalOverlay = document.querySelector('.modal-overlay');
-const cards = document.querySelectorAll('.card');
+const currentPage = location.pathname //windows.location
+const menuItems = document.querySelectorAll("header .links a")
 
-for (let card of cards) {
-    card.addEventListener("click", function(){
-        const videoId = card.getAttribute("id");
-        window.location.href = `/video?id=${videoId}`;
-    })
+console.log(menuItems)
+
+for (item of menuItems) {
+    if (currentPage.includes(item.getAttribute("href"))) { /*tá dando erro aqui "getAtribute is not a function"*/
+        item.classList.add("active")
+    }
 }
-
