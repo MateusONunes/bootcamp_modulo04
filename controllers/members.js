@@ -1,35 +1,14 @@
 const fs = require('fs')
 const data = require('../data.json')
-const { age, date } = require('../utils') // desestruturando a funcao age.
+const { date } = require('../utils') // desestruturando a funcao age.
 
 exports.index =  function(req, res){
     let member = data.members
 
-//    for(var i = 0, len = member.length; i < len; ++i) {
-        //member[i].services_arr = member[i].services.split(',');
-    //}
+    console.log('x')
+
 
     return res.render("members/index", { members: member})
-}
-
-//show
-exports.show = function(req, res){
-    const { id } = req.params
-
-    const foundMember = data.members.find(function(member){
-        return member.id == id
-    })
-
-    if (!foundMember) return res.send("Member not Found")
-
-    //return res.send(foundMember) // Enviar o objeto para o browser
-
-      const member = {
-        ...foundMember,
-        age: age(foundMember.birth)
-    }/* nesta instrução foi executado um" espalhamento" (Por exemplos, o nome não está nas variáveis mas foi "espalhado mesmo assim")*/
-
-    return res.render("members/show", { member: member})
 }
 
 //create
@@ -51,23 +30,29 @@ exports.post = function(req, res){
     }
 
     req.body.birth = Date.parse(req.body.birth)
-    req.body.created_at = Date.now() // observar que "created_at" está sendo INSERIDO no "body"
-    req.body.id = Number(data.members.length + 1); // observar que "id" está sendo INSERIDO no "body"
+
+    let Numid = 1
+    const lastmember = data.members[data.members.length - 1]
+
+    if (lastmember) Numid = lastmember.id
+      
+    req.body.id = Number(Numid + 1); // observar que "id" está sendo INSERIDO no "body"
 
     //data.members.push(req.body)
     //as duas linhas abaixo fazem o mesmo que a linha acima. Foi utilizadoo conceito de desestruturação apenas para que fique nítido para o programador o que está sendo feito
-    const {avatar_url, birth,created_at, id, name, services, gender} = req.body //desestruturando req.body (poderia utilizar "let"(para alterar) ao invés de "const")
+    const {id, avatar_url, birth, name, email, gender, blood, weight, height} = req.body //desestruturando req.body (poderia utilizar "let"(para alterar) ao invés de "const")
+    
     data.members.push({
-        id, 
-        name,
+        id,
         avatar_url, 
+        name,
+        email,
         birth,
         gender,
-        services, 
-        created_at
+        blood,
+        weight,
+        height
     })
-
-    avatar_url, birth,created_at, id, name, services, gender
 
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function(err){
         if (err) return res.send("write file error")
@@ -76,9 +61,8 @@ exports.post = function(req, res){
     })
 }
 
-// edit
-exports.edit =  function(req, res){
-
+//show
+exports.show = function(req, res){
     const { id } = req.params
 
     const foundMember = data.members.find(function(member){
@@ -87,10 +71,31 @@ exports.edit =  function(req, res){
 
     if (!foundMember) return res.send("Member not Found")
 
+    //return res.send(foundMember) // Enviar o objeto para o browser
+
+      const member = {
+        ...foundMember,
+        birth: date(foundMember.birth).birthDay
+    }/* nesta instrução foi executado um" espalhamento" (Por exemplos, o nome não está nas variáveis mas foi "espalhado mesmo assim")*/
+
+    return res.render("members/show", { member: member})
+}
+
+// edit
+exports.edit =  function(req, res){
+    
+    const { id } = req.params
+    
+    const foundMember = data.members.find(function(member){
+        return member.id == id
+    })
+
+    if (!foundMember) return res.send("Member not Found")
+
     const member = {
         ...foundMember,
-        birth: date(foundMember.birth)
-    }
+        birth: date(foundMember.birth).iso
+    }    
 
     return res.render('members/edit', {member: member})
 }
